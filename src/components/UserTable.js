@@ -1,7 +1,7 @@
 import React from "react";
 import { Table} from 'antd';
-
-
+import IndexAction from "./actions/IndexAction";
+import {Wrapper} from '../components/wrapper/Wrapper.Style'
 const UserTable = (props) => {
   console.log('this is table',props.user);
   const {user} = props
@@ -12,7 +12,7 @@ user.map(user => emptyList.push(
     name: user.name,
     phone: user.phone,
     address: user.email,
-    action:<h3 onClick={() => console.log(user.id)}>hello world</h3>
+    action: <> <IndexAction user={user}/></>
   },
 ) )
 
@@ -50,11 +50,13 @@ console.log("this is new list ",emptyList);
     },
   ];
   
-
+ 
+  
   return (
-    <div>
+    <Wrapper>
         <Table dataSource={dataSource} columns={columns} />
-    </div>
+
+    </Wrapper>
   )
 }
 

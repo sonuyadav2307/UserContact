@@ -2,8 +2,11 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import React,{useState} from 'react'
 import {  useDispatch } from "react-redux";
 import {addUsers} from '../../redux/actions/users'
+import { useHistory } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+import {Wrapper} from '../../components/wrapper/Wrapper.Style'
 const AddContact = () => {
-   
+  const history = useHistory();
      const [name, setName] = useState("")
      const [phone, setPhone] = useState("")
      const [email, setEmail] = useState("")
@@ -13,6 +16,7 @@ const AddContact = () => {
         console.log('hello world',name,phone,email);
         dispatch(addUsers(
           {
+            id:uuidv4(),
             key: '20',
             name: name,
             phone: phone,
@@ -20,8 +24,10 @@ const AddContact = () => {
             
           }
         ))
+        history.goBack();
       };
     return (
+      <Wrapper>
         <Form onFinish={onFinish} >
             <Form.Item
              label="Username"
@@ -50,11 +56,14 @@ const AddContact = () => {
              
             >
             <Input />
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" className="submit-btn">
           Submit
         </Button>
             </Form.Item>
+            
         </Form>
+       
+        </Wrapper>
     )
 }
 

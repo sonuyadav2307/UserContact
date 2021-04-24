@@ -32,11 +32,17 @@ export default function users(state = initialState, action){
                 } 
             case type.ADD_USERS:
                 console.log('add user called');
-                console.log(action.payload);
                 return{
                    ...state,
-                   users:[...state.users,action.payload]
-                }       
+                   users:[action.payload,...state.users]
+                }  
+            case type.DELETE_USERS:
+                console.log("delete user called",action.payload); 
+                console.log("original state", state);        
+                return{
+                    ...state,
+                    users: state.users.filter(user => user.id != action.payload)
+                }
             default:
                 return state;
     }

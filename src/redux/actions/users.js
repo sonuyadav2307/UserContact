@@ -12,3 +12,9 @@ export function addUsers(users){
         payload: users
     }
 }
+export function deleteUsers(users){
+    return{
+        type: type.DELETE_USERS,
+        payload: users
+    }
+}

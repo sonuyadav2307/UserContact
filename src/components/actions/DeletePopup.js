@@ -10,14 +10,14 @@ const DeletePopup = ({id}) => {
     const dispatch = useDispatch();
     function confirm(e) {
         console.log(e);
-        message.success('Click on Yes');
+        message.success('User Deleted');
         dispatch(deleteUsers(id))
        
       }
       
       function cancel(e) {
         console.log(e);
-        message.error('Click on No');
+        message.error('Cancelled');
       }
     return (
         <Popconfirm
@@ -27,7 +27,7 @@ const DeletePopup = ({id}) => {
         okText="Yes"
         cancelText="No"
       >
-        <a href="#"><DeleteOutlined style={{ fontSize: '30px', color: '#f50057', paddingRight:'2rem' }}/></a>
+        <a><DeleteOutlined style={{ fontSize: '30px', color: '#f50057', paddingRight:'2rem' }}/></a>
       </Popconfirm>
     )
 }

@@ -1,8 +1,6 @@
 import { Modal, Button } from 'antd';
 import React from 'react'
 import {
-    DeleteOutlined,
-    EditOutlined,
     EyeOutlined,
   } from '@ant-design/icons';
 class ViewModal extends React.Component {
@@ -44,7 +42,7 @@ class ViewModal extends React.Component {
         >
             
            
-          <p>Some contents...</p>
+        
           <p>Name:{this.props.user.name}</p>
           <p>Email:{this.props.user.email}</p>
           <p>Phone Number:{this.props.user.phone}</p>

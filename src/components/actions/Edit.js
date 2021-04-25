@@ -1,14 +1,13 @@
 import React from 'react'
 import {
-    DeleteOutlined,
     EditOutlined,
-    EyeOutlined,
   } from '@ant-design/icons';
-const Edit = () => {
+  import {Link} from 'react-router-dom'
+const Edit = ({id}) => {
     return (
-        <div>
+        <Link to={`/EditContact/${id}`}>
             <EditOutlined onClick={() => console.log('edited')}style={{ fontSize: '30px', color: '#ffab00', paddingRight:'1rem' }}/>
-        </div>
+        </Link >
     )
 }
 

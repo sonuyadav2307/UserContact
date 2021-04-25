@@ -1,21 +1,46 @@
-import React,{useEffect} from 'react'
-import {  useDispatch } from "react-redux";
-import { getUsers } from "../../redux/actions/users";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Wrapper } from "./Navbar.Style";
 
-import {Link} from 'react-router-dom'
-import {Wrapper} from './Navbar.Style'
 const Navbar = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getUsers());
-      }, []);
-    return (
-<Wrapper>
-  <li><Link to='/' class="active" href="#">Contacts</Link></li>
-  <li><Link to='/add' href="#">Create Contact</Link></li>
+  const authentication = useSelector((state) => state.authentication.login);
+  return (
+    <Wrapper>
+      <li>
+        <Link to="/userdata" className="active" href="#">
+          Contacts
+        </Link>
+      </li>
+      <li>
+        <Link to="/add" href="#">
+          Create Contact
+        </Link>
+      </li>
+      <div className="auth">
+        {authentication ? (
+          <li>
+            <Link to="/" href="#">
+              Log Out
+            </Link>
+          </li>
+        ) : (
+          <>
+            <li>
+              <Link to="/login" className="active" href="#">
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link to="/signup" href="#">
+                Sign Up
+              </Link>
+            </li>
+          </>
+        )}
+      </div>
+    </Wrapper>
+  );
+};
 
-</Wrapper>
-    )
-}
-
-export default Navbar
+export default Navbar;

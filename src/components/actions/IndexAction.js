@@ -6,7 +6,7 @@ import ViewModal from './ViewModal'
 const IndexAction = ({user}) => {
     return (
         <div style={{display:'flex'}}>
-            <DeletePopup id={user.id}/><Edit /><ViewModal user={user}/>
+            <DeletePopup id={user.id}/><Edit id={user.id}/><ViewModal user={user}/>
         </div>
     )
 }

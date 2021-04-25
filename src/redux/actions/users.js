@@ -18,3 +18,9 @@ export function deleteUsers(users){
         payload: users
     }
 }
+export function editUsers(id){
+    return{
+        type: type.EDIT_USERS,
+        payload: id
+    }
+}

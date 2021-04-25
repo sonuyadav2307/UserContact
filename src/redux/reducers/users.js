@@ -40,16 +40,14 @@ export default function users(state = initialState, action) {
        
       };
     case type.EDIT_USERS:
+      
       let arr = state.users.filter(
-        (user) => user.id === action.payload
+        (user) => user.id == action.payload
       );
-
-     
-      console.log("this is arr", arr);
+      console.log(arr,state.users, "editForm");
       return {
         ...state,
         editForm: arr[0],
-       
       };
     default:
       return state;

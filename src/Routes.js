@@ -21,7 +21,7 @@ const Routes = () => {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/" component={HomePage} />
+          <ProtectedRoute exact path="/" component={UserData} />
           
           
           {/* <Route exact path="/userdata" component={UserData} /> */}

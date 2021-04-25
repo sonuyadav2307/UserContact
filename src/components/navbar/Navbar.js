@@ -1,10 +1,18 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {authenticateUsers} from '../../redux/actions/authentication'
 import { Link } from "react-router-dom";
+import {Button, message} from "antd"
 import { Wrapper } from "./Navbar.Style";
 
 const Navbar = () => {
+  const dispatch = useDispatch()
   const authentication = useSelector((state) => state.authentication.login);
+  const logout = () => {
+    dispatch(authenticateUsers())
+    localStorage.removeItem('state')
+    message.success("Logout")
+  }
   return (
     <Wrapper>
       <li>
@@ -20,8 +28,8 @@ const Navbar = () => {
       <div className="auth">
         {authentication ? (
           <li>
-            <Link to="/" href="#">
-              Log Out
+            <Link to="/login" href="#">
+              <Button onClick={logout} ghost>Log Out</Button>
             </Link>
           </li>
         ) : (

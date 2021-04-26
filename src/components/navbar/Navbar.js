@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <Wrapper>
-      {isBirthday(user.nextWishDate) && BirthdayNotification(user)}
+      {user && (isBirthday(user.nextWishDate) && BirthdayNotification(user))}
       <ul className="menu">
         <li>
           <Link to={`${process.env.PUBLIC_URL}/userdata`} className="active">

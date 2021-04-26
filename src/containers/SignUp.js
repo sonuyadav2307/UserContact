@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
-import { todayShort } from "../helpers/dateHelpers";
+import { todayShort, wishDateMaker } from "../helpers/dateHelpers";
 import FormBuilder from "../components/formBuilder/FormBuilder";
 import { Wrapper } from "../components/wrapper/Wrapper.Style";
 import { authenticateUsers } from "../redux/actions/authentication";
@@ -11,9 +11,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const onFinish = (values) => {
-    values.nextWishDate = values.birthdate;
-    console.log("sign up values", values);
-    console.log(typeof values.birthdate, "type of");
+    values.nextWishDate = wishDateMaker(values.birthdate._d);
 
     let allUser = localStorage.getItem("All_User");
     if (allUser === null) {
@@ -65,7 +63,7 @@ const SignUp = () => {
       rules: [{ required: true, message: "Please enter your Birth Date" }],
     },
   ];
-  console.log(todayShort);
+
   return (
     <div>
       <Wrapper>

@@ -15,7 +15,7 @@ export default function users(state = initialState, action) {
         loading: true,
       };
     case type.GET_USERS_SUCCESS:
-        console.log(action.users,"this is main");
+      console.log(action.users, "this is main");
       return {
         ...state,
         loading: false,
@@ -31,20 +31,28 @@ export default function users(state = initialState, action) {
       return {
         ...state,
         users: [action.payload, ...state.users],
-        loading:false
+        loading: false,
       };
     case type.DELETE_USERS:
       return {
         ...state,
         users: state.users.filter((user) => user.id !== action.payload),
-       
       };
     case type.EDIT_USERS:
-      
-      let arr = state.users.filter(
-        (user) => user.id == action.payload
-      );
-      console.log(arr,state.users, "editForm");
+      console.log("aaaa", action.payload.id);
+      return {
+        ...state,
+        users: [
+          ...state.users.map((user) =>
+            action.payload.id == user.id
+              ? {...user, ...action.payload }
+              : user
+          ),
+        ],
+      };
+    case type.GET_USER_BY_ID:
+      let arr = state.users.filter((user) => user.id == action.payload);
+      console.log(arr, state.users, "editForm");
       return {
         ...state,
         editForm: arr[0],

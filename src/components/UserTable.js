@@ -14,7 +14,6 @@ const UserTable = (props) => {
       address: user.email,
       action: (
         <>
-          {" "}
           <IndexAction user={user} />
         </>
       ),

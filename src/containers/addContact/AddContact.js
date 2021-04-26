@@ -27,6 +27,7 @@ const AddContact = () => {
       name: "username",
       initialValue: "",
       placeholder: "Username",
+      rules: [{ required: true, message: "Please enter username" }],
     },
     {
       type: "number",
@@ -34,6 +35,7 @@ const AddContact = () => {
       name: "phone",
       initialValue: "",
       placeholder: "Phone",
+      rules: [{ required: true, message: "Please enter phone number" }],
     },
     {
       type: "email",

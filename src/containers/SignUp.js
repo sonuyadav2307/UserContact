@@ -1,50 +1,48 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { message } from "antd";
+import { useDispatch } from "react-redux";
+import { todayShort } from "../helpers/dateHelpers";
 import FormBuilder from "../components/formBuilder/FormBuilder";
 import { Wrapper } from "../components/wrapper/Wrapper.Style";
-import { useDispatch } from "react-redux";
-import {authenticateUsers} from '../redux/actions/authentication'
-import { useHistory } from "react-router-dom";
-import {message} from 'antd'
+import { authenticateUsers } from "../redux/actions/authentication";
+
 const SignUp = () => {
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
   const onFinish = (values) => {
-    values.nextWishDate = values.birthdate
+    values.nextWishDate = values.birthdate;
     console.log("sign up values", values);
+    console.log(typeof values.birthdate, "type of");
 
-    let allUser = localStorage.getItem('All_User')
-    if (allUser === null){
-      allUser = [values]
-      
-      
-    }else{
-      allUser = JSON.parse(allUser)
-      const existingUser = allUser.filter((data) => data.username === values.username)
-      if (existingUser.length === 0){
-        allUser.push(values)
-       
+    let allUser = localStorage.getItem("All_User");
+    if (allUser === null) {
+      allUser = [values];
+    } else {
+      allUser = JSON.parse(allUser);
+      const existingUser = allUser.filter(
+        (data) => data.email === values.email
+      );
+      if (existingUser.length === 0) {
+        allUser.push(values);
+      } else {
+        message.error("User Already Exists");
+        return;
       }
-      else{
-        message.error("User Already Exists")
-        return
-      }
-
     }
-    let values_serialized = JSON.stringify(allUser)
-    localStorage.setItem('All_User',values_serialized)
-    dispatch(authenticateUsers(values))
-    history.push('/userdata')
-  
- 
-    
+    let values_serialized = JSON.stringify(allUser);
+    localStorage.setItem("All_User", values_serialized);
+    dispatch(authenticateUsers(values));
+    history.push("/userdata");
   };
   const formData = [
     {
-      type: "text",
-      label: "Username",
-      name: "username",
+      type: "email",
+      label: "Email",
+      name: "email",
       initialValue: "",
-      placeholder: "Username",
+      placeholder: "Email",
+      rules: [{ required: true, message: "Please enter Email" }],
     },
     {
       type: "password",
@@ -52,6 +50,10 @@ const SignUp = () => {
       name: "password",
       initialValue: "",
       placeholder: "password",
+      rules: [
+        { required: true, message: "Please enter Password" },
+        { min: 8, message: "password' must be at least 8 characters" },
+      ],
     },
     {
       type: "date",
@@ -59,9 +61,11 @@ const SignUp = () => {
       name: "birthdate",
       initialValue: "",
       placeholder: "Birthdate",
+      disabledDate: (d) => !d || d.isAfter(todayShort),
+      rules: [{ required: true, message: "Please enter your Birth Date" }],
     },
   ];
-
+  console.log(todayShort);
   return (
     <div>
       <Wrapper>

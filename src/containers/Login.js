@@ -2,7 +2,7 @@ import React from "react";
 import FormBuilder from "../components/formBuilder/FormBuilder";
 import { Wrapper } from "../components/wrapper/Wrapper.Style";
 import { useDispatch } from "react-redux";
-import {authenticateUsers} from '../redux/actions/authentication'
+import { authenticateUsers } from "../redux/actions/authentication";
 import { useHistory } from "react-router-dom";
 import { message } from "antd";
 const Login = () => {
@@ -20,27 +20,32 @@ const Login = () => {
     //   }
     // ))
     // history.goBack();
-    const alluser = JSON.parse(localStorage.getItem('All_User'));
-    console.log('this is all user', alluser);
-    const user =  alluser.filter(user => user.username === values.username)
-    if(user.length > 0){
-      if(user[0].password === values.password){
-        dispatch(authenticateUsers())
-        history.push('/userdata')
-      }else{
-        message.error('Password does not match')
+    const alluser = JSON.parse(localStorage.getItem("All_User"));
+    console.log("this is all user", alluser);
+    if (alluser !== null) {
+      const user = alluser.filter((user) => user.email === values.email);
+      if (user.length > 0) {
+        if (user[0].password === values.password) {
+          dispatch(authenticateUsers(user[0]));
+          history.push("/userdata");
+        } else {
+          message.error("Password does not match");
+        }
+      } else {
+        message.error("User email does not match");
       }
-    }else{
-      message.error('User email does not match')
+    } else {
+      message.success("Please sign up first");
     }
   };
   const formData = [
     {
       type: "email",
-      label: "Username",
-      name: "username",
+      label: "Email",
+      name: "email",
       initialValue: "",
-      placeholder: "Username",
+      placeholder: "Email",
+      rules: [{ required: true, message: "Please enter Email" }],
     },
     {
       type: "password",
@@ -48,6 +53,10 @@ const Login = () => {
       name: "password",
       initialValue: "",
       placeholder: "password",
+      rules: [
+        { required: true, message: "Please enter Password" },
+        { min: 8, message: "password' must be at least 8 characters" },
+      ],
     },
   ];
   return (

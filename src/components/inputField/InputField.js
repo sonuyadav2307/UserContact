@@ -1,21 +1,27 @@
-import React from 'react'
-import { Form, Input} from 'antd';
+import React from "react";
+import { DatePicker, Form, Input } from "antd";
 
-const InputField = ({type,label,name,placeholder, help}) => {
-    
-    return (
-        <>
-             <Form.Item
-             label= {label}
-             name={name}
-             value= {name}
-           
-             
-            >
-            { type === "password" ? <Input.Password/>: <Input type = {type} placeholder={placeholder}/>}
-            </Form.Item>
-        </>
-    )
-}
+const InputField = ({
+  type,
+  label,
+  name,
+  placeholder,
+  rules,
+  disabledDate,
+}) => {
+  return (
+    <>
+      <Form.Item label={label} name={name} rules={rules}>
+        {type === "password" ? (
+          <Input.Password />
+        ) : type === "date" ? (
+          <DatePicker disabledDate={disabledDate} format="YYYY/MM/DD" />
+        ) : (
+          <Input type={type} placeholder={placeholder} />
+        )}
+      </Form.Item>
+    </>
+  );
+};
 
-export default InputField
+export default InputField;

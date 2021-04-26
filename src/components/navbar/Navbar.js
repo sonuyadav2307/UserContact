@@ -1,52 +1,52 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {authenticateUsers} from '../../redux/actions/authentication'
-import { Link } from "react-router-dom";
-import {Button, message} from "antd"
+import { logout } from "../../redux/actions/authentication";
+import { Link, useHistory } from "react-router-dom";
+import { Button, message } from "antd";
 import { Wrapper } from "./Navbar.Style";
 
 const Navbar = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const history = useHistory();
   const authentication = useSelector((state) => state.authentication.login);
-  const logout = () => {
-    dispatch(authenticateUsers())
-    localStorage.removeItem('state')
-    message.success("Logout")
-  }
+  const logoutHandler = () => {
+    dispatch(logout());
+    localStorage.removeItem("state");
+    history.push("/login");
+    message.success("Logout");
+  };
   return (
     <Wrapper>
-      <li>
-        <Link to="/userdata" className="active" href="#">
-          Contacts
-        </Link>
-      </li>
-      <li>
-        <Link to="/add" href="#">
-          Create Contact
-        </Link>
-      </li>
-      <div className="auth">
+      <ul className="menu">
+        <li>
+          <Link to={`${process.env.PUBLIC_URL}/userdata`} className="active">
+            Contacts
+          </Link>
+        </li>
+        <li>
+          <Link to={`${process.env.PUBLIC_URL}/add`}>Create Contact</Link>
+        </li>
+      </ul>
+      <ul className="auth">
         {authentication ? (
           <li>
-            <Link to="/login" href="#">
-              <Button onClick={logout} ghost>Log Out</Button>
-            </Link>
+            <Button onClick={logoutHandler} ghost>
+              Log Out
+            </Button>
           </li>
         ) : (
           <>
             <li>
-              <Link to="/login" className="active" href="#">
+              <Link to={`${process.env.PUBLIC_URL}/login`} className="active">
                 Login
               </Link>
             </li>
             <li>
-              <Link to="/signup" href="#">
-                Sign Up
-              </Link>
+              <Link to={`${process.env.PUBLIC_URL}/signup`}>Sign Up</Link>
             </li>
           </>
         )}
-      </div>
+      </ul>
     </Wrapper>
   );
 };

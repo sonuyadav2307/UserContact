@@ -6,3 +6,8 @@ export function authenticateUsers(users){
         payload: users
     }
 }
+export function logout() {
+  return {
+    type: type.LOGOUT,
+  };
+}

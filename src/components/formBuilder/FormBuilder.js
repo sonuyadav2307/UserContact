@@ -1,9 +1,9 @@
+import React, { useEffect } from "react";
 import { Form, Button } from "antd";
-import React from "react";
 import InputField from "../../components/inputField/InputField";
-const AddContact = ({ formData, onFinish }) => {
+const FormBuilder = ({ formData, onFinish }) => {
   console.log(formData);
-
+  const [form] = Form.useForm();
   const initialValueMaker = (formValues) => {
     const initialValues = {};
     formValues.forEach((data) => {
@@ -11,6 +11,10 @@ const AddContact = ({ formData, onFinish }) => {
     });
     return initialValues;
   };
+  useEffect(() => {
+    const initials = initialValueMaker(formData);
+    form.setFieldsValue(initials);
+  }, [form, formData]);
   const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 16 },
@@ -21,6 +25,7 @@ const AddContact = ({ formData, onFinish }) => {
   return (
     <Form
       {...layout}
+      form={form}
       onFinish={onFinish}
       initialValues={initialValueMaker(formData)}
     >
@@ -36,4 +41,4 @@ const AddContact = ({ formData, onFinish }) => {
   );
 };
 
-export default AddContact;
+export default FormBuilder;

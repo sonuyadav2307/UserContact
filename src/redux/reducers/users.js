@@ -39,7 +39,8 @@ export default function users(state = initialState, action) {
         users: state.users.filter((user) => user.id !== action.payload),
       };
     case type.EDIT_USERS:
-      console.log("aaaa", action.payload.id);
+      console.log("aaaat", action.payload);
+      console.log("this is cool state",state);
       return {
         ...state,
         users: [

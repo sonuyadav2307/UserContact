@@ -24,10 +24,10 @@ function EditContact() {
   const formData = [
     {
       type: "text",
-      label: "Username",
-      name: "username",
+      label: "Name",
+      name: "name",
       initialValue: editForm.name,
-      placeholder: "Username",
+      placeholder: "Name",
     },
     {
       type: "text",
